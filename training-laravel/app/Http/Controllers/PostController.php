@@ -89,7 +89,21 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $form = $request->all();
+        $file = $request->file('image');
+        if (isset($file))
+        {
+            $path = Storage::disk('s3')->putFile('/', $file, 'public');
+            $post->image = $path;
+        }
+
+        if (!isset($file))
+        {
+            $post->image = null;
+        }
+        $post->fill($form)->save();
+
+        return redirect('/')->with('flash_message', '編集しました');
     }
 
     /**

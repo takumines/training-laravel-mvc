@@ -11,9 +11,9 @@
         </div>
     @endif
     <div class="container">
-        <h2 class="test-center">記事投稿画面</h2>
+        <h2 class="test-center">記事編集画面</h2>
         <div class="form-control">
-            <form action="/post/create" method="post" enctype="multipart/form-data">
+            <form action="/post/{{ $post->id }}/edit" method="post" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <label for="title">タイトル<br>
