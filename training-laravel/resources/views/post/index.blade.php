@@ -33,20 +33,15 @@
                 <div class="col-md-10">
                     <div class="row">
                         @foreach( $posts as $post )
-                            <div class="col-sm-12 col-md-4">
-                                <div class="postBox" style="border: medium solid #9d8866;">
-                                    <h2>{{$post->title}}</h2>
-                                    <p>{{$post->body}}</p>
-                                    投稿者: <p>{{$post->user->name}}</p>
-                                    <button class="btn-info btn" type="button">
-                                        <a href="{{ route('post.edit',['post' => $post]) }}">編集</a>
-                                    </button>
-                                    <div>
-                                        <form action="{{ route('post.delete', ['post' => $post]) }}" method="post">
-                                            @method('DELETE')
-                                            @csrf
-                                            <input class="btn btn-danger" type="submit" value="削除">
-                                        </form>
+                            <div class="col-md-4">
+                                <div class="card mb-4 shadow-sm">
+                                    @if (isset($post->image))
+                                        <img src="{{ $post->image }}" class="card-img-top">
+                                    @else
+                                        <img src="{{ asset('images/no-image.jpg') }}" alt="" class="card-img-top">
+                                    @endif
+                                    <div class="card-body bg-light">
+                                        <h3 class="card-title"><a href="{{ route('post.show',['post' => $post->id]) }}">{{ $post->title }}</a></h3>
                                     </div>
                                 </div>
                             </div>
