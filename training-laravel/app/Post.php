@@ -24,13 +24,13 @@ class Post extends Model
     public function postQuery($request)
     {
         if ($request->type === 'title') {
-            $posts = Post::where('title', 'like', '%'.$request->keyword.'%')->orderBy('created_at','desc')->paginate(4);
+            $posts = Post::where('title', 'like', '%'.$request->keyword.'%')->orderBy('created_at','desc')->paginate(6);
         }
         if ($request->type === 'body') {
-            $posts = Post::where('body', 'like', '%'.$request->keyword.'%')->orderBy('created_at','desc')->paginate(4);
+            $posts = Post::where('body', 'like', '%'.$request->keyword.'%')->orderBy('created_at','desc')->paginate(6);
         }
         if (!isset($request->type)) {
-            $posts = $this->orderBy('created_at','desc')->paginate(4);
+            $posts = $this->orderBy('created_at','desc')->paginate(6);
         }
 
         return $posts;
