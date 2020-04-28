@@ -73,9 +73,14 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Post $post, Tag $tag)
     {
-        return view('post.show', ['post' => $post]);
+        $tags = $post->tags;
+
+        return view('post.show', [
+            'post' => $post,
+            'tags' => $tags
+        ]);
     }
 
     /**
@@ -84,9 +89,16 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Post $post, Tag $tag)
     {
-        return view('post.edit', ['post' => $post]);
+        $tags = $tag->all();
+        $selectTags = $post->tags;
+
+        return view('post.edit', [
+            'post' => $post,
+            'tags' => $tags,
+            'selectTags' => $selectTags,
+        ]);
     }
 
     /**
@@ -111,6 +123,8 @@ class PostController extends Controller
             $post->image = null;
         }
         $post->fill($form)->save();
+        $post->tags()->detach();
+        $post->tags()->attach($request->tags);
 
         return redirect('/')->with('flash_message', '編集しました');
     }
