@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Storage;
@@ -15,11 +16,15 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request,Post $post)
+    public function index(Request $request, Post $post, Tag $tag)
     {
+        $tags = $tag->all();
         $posts = $post->postQuery($request);
 
-        return view('post.index', ['posts' => $posts]);
+        return view('post.index', [
+            'posts' => $posts,
+            'tags' => $tags,
+            ]);
     }
 
     /**
@@ -27,9 +32,10 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Tag $tag)
     {
-        return view('post.create');
+        $tags = $tag->all();
+        return view('post.create', ['tags' => $tags]);
     }
 
     /**
@@ -40,6 +46,7 @@ class PostController extends Controller
      */
     public function store(PostForm $request, Post $post)
     {
+
         $post->user_id = Auth::id();
         $form = $request->all();
         $file = $request->file('image');
@@ -54,6 +61,8 @@ class PostController extends Controller
             $post->image = null;
         }
         $post->fill($form)->save();
+        $post->tags()->detach();
+        $post->tags()->attach($request->tags);
 
         return redirect('/')->with('flash_message', '投稿しました');
     }
