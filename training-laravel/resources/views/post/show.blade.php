@@ -14,7 +14,16 @@
                     <div class="">
                         <h1 class="text-center mb-3">{{ $post->title }}</h1>
                         <h2 class="text-center mb-3">{{ $post->body }}</h2>
+                        @if (count($tags) === 0)
+                            <p class="text-center">タグが選択せれていません</p>
+                        @else
+                            @foreach ($tags as $tag)
+                                <span class="text-success">#</span>
+                                <h4 class="d-inline">{{ $tag->category }}</h4>
+                            @endforeach
+                        @endif
                     </div>
+
                     @auth
                         <div class="col-12 pt-3 text-center">
                             <a class="btn btn-lg btn-primary" href="{{ route('post.edit',['post' => $post->id]) }}">編集</a>
