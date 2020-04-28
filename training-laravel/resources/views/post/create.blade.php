@@ -11,23 +11,28 @@
         </div>
     @endif
     <div class="container">
-        <h2 class="test-center">記事投稿画面</h2>
-        <div class="form-control">
-            <form action="/post/create" method="post" enctype="multipart/form-data">
-                @csrf
-                <label for="title">タイトル<br>
-                    <input type="text" name="title" value="{{ old('title') }}">
-                </label> <br>
-                <label for="body">本文<br>
-                    <textarea name="body"cols="30" rows="10">{{ old('body') }}</textarea>
-                </label> <br>
-                <label for="image">写真<br>
-                    <input type="file" name="image">
-                </label>
-                <div class="test-center">
-                    <button type="submit" class="btn btn-primary">投稿</button>
-                </div>
-            </form>
+        <div class="row">
+            <div class="col col-md-8 mx-auto">
+                <h2 class="text-center">記事投稿画面</h2>
+                <form action="/post/create" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="title">タイトル</label>
+                        <input class="form-control" type="text" name="title" value="{{ old('title') }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="body">本文</label>
+                        <textarea class="form-control" name="body"cols="30" rows="10">{{ old('body') }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">写真</label>
+                        <input class="form-control-file" type="file" name="image">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-lg btn-primary">投稿</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 @endsection
