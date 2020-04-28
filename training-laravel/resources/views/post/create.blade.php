@@ -28,11 +28,23 @@
                         <label for="image">写真</label>
                         <input class="form-control-file" type="file" name="image">
                     </div>
+                    @if (!isset($tags))
+                        <p class="text-center">選択できるタグがありません</p>
+                    @else
+                        @foreach ($tags as $tag)
+                            <h4 class="d-inline mr-3">
+                                <input type="checkbox" name="tags[]" value="{{ $tag->id }}">{{ $tag->category }}
+                            </h4>
+                        @endforeach
+                    @endif
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-lg btn-primary">投稿</button>
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="text-center">
+            <a class="btn btn-lg btn-info" href="{{ route('tag.create') }}">タグを追加する</a>
         </div>
     </div>
 @endsection

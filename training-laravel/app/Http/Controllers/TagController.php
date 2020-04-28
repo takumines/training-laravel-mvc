@@ -24,7 +24,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('tag.create');
     }
 
     /**
@@ -33,9 +33,12 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Tag $tag)
     {
-        //
+        $tag->category = $request->category;
+        $tag->save();
+
+        return redirect('/post/create')->with('flash_message', 'タグを追加しました');
     }
 
     /**

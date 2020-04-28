@@ -9,12 +9,22 @@ class Post extends Model
     protected $fillable = ['user_id', 'title', 'body', 'image'];
 
     /**
-     * usersテーブルとのリレーション
-     * @return $obj
+     * usersテーブルと1対多のリレーション
+     * @return App\User
      */
     public function user()
     {
-        return $this->belongsTo('App\user');
+        return $this->belongsTo('App\User');
+    }
+
+    /**
+     * usersテーブルとの多対多のリレーション
+     *
+     * @return App\Tag
+     */
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag');
     }
 
     /**

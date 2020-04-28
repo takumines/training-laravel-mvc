@@ -7,7 +7,7 @@
         </div>
     @endif
     <div class="text-center">
-        <form action="{{ route('post.list') }}" method="get">
+        <form action="{{ route('post.list') }}" method="get" class="mb-4">
             <select name="type">
                 <option value="title">タイトル</option>
                 <option value="body">本文</option>
@@ -27,6 +27,13 @@
                     <div class="card">
                         <div class="card-header text-center">
                             <h4>タグ一覧</h4>
+                        </div>
+                        <div class="card-body">
+                            @foreach ($tags as $tag)
+                                <h3 class="text-center">
+                                    <a href="#">{{ $tag->category }}</a>
+                                </h3>
+                            @endforeach
                         </div>
                     </div>
                 </div>
