@@ -7,8 +7,6 @@ use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostForm;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
@@ -49,20 +47,7 @@ class PostController extends Controller
     {
         $post->user_id = Auth::id();
         $form = $request->all();
-        if (isset($form['image']))
-        {
-            $extension = $form['image']->getClientOriginalExtension();
-            $filename = $form['image']->getClientOriginalName();
-            $resize_img = Image::make($form['image'])->resize(320, 240)->encode($extension);
-            $path = Storage::disk('s3')->put('/post/'.$filename,(string)$resize_img, 'public');
-            $url = Storage::disk('s3')->url('post/'.$filename);
-            $post->image = $url;
-        }
-
-        if (!isset($form['image']))
-        {
-            $post->image = null;
-        }
+        $post->insertImage($form);
         unset($form['image']);
         $post->fill($form)->save();
         $post->tags()->detach();
@@ -115,20 +100,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $form = $request->all();
-        if (isset($form['image']))
-        {
-            $extension = $form['image']->getClientOriginalExtension();
-            $filename = $form['image']->getClientOriginalName();
-            $resize_img = Image::make($form['image'])->resize(320, 240)->encode($extension);
-            $path = Storage::disk('s3')->put('/post/'.$filename,(string)$resize_img, 'public');
-            $url = Storage::disk('s3')->url('post/'.$filename);
-            $post->image = $url;
-        }
-
-        if (!isset($form['image']))
-        {
-            $post->image = null;
-        }
+        $post->uploadImage($form);
         unset($form['image']);
         $post->fill($form)->save();
         $post->tags()->detach();
