@@ -17,4 +17,16 @@ class Tag extends Model
     {
         return $this->belongsToMany('App\Post');
     }
+
+    /**
+     * 選択されたタグに紐付いた記事を取得する
+     *
+     * @return array
+     */
+    public function selectTag()
+    {
+        $posts = $this->posts()->orderBy('created_at','desc')->paginate(6);
+
+        return $posts;
+    }
 }

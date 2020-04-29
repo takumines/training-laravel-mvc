@@ -31,7 +31,7 @@
                         <div class="card-body">
                             @foreach ($tags as $tag)
                                 <h3 class="text-center">
-                                    <a href="#">{{ $tag->category }}</a>
+                                    <a href="/tag/search/{{ $tag->id }}">{{ $tag->category }}</a>
                                 </h3>
                             @endforeach
                         </div>
