@@ -47,7 +47,7 @@ class PostController extends Controller
     {
         $post->user_id = Auth::id();
         $form = $request->all();
-        $post->insertImage($form);
+        $post->uploadImage($form);
         unset($form['image']);
         $post->fill($form)->save();
         $post->tags()->detach();
