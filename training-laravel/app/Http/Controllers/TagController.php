@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tag;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateTagForm;
 
 class TagController extends Controller
 {
@@ -12,9 +13,15 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Tag $tag)
     {
-        //
+        $tags = $tag->all();
+        $posts = $tag->selectTag();
+
+        return view('post.index', [
+            'tags'  => $tags,
+            'posts' => $posts,
+        ]);
     }
 
     /**
@@ -33,7 +40,7 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Tag $tag)
+    public function store(CreateTagForm $request, Tag $tag)
     {
         $tag->category = $request->category;
         $tag->save();
