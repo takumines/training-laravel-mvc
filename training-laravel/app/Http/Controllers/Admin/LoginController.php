@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::ADMIN_HOME;
 
     /**
      * Create a new controller instance.
@@ -37,7 +37,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:user')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
     }
 
     /**
@@ -47,17 +47,17 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('admin.login');
     }
 
     /**
-     * 認証方法をuserに設定
+     * 認証方法をadminに設定
      *
      * @return Illumiante\Support\Facades\Auth;
      */
     public function guard()
     {
-        return Auth::guard('user');
+        return Auth::guard('admin');
     }
 
     /**
@@ -67,10 +67,10 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-        Auth::guard('user')->logout();
+        Auth::guard('admin')->logout();
         $request->session()->flush();
         $request->session()->regenerate();
 
-        return redirect('/login');
+        return redirect('/admin/login');
     }
 }
