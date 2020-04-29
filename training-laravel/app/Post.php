@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class Post extends Model
 {
@@ -44,5 +46,28 @@ class Post extends Model
         }
 
         return $posts;
+    }
+
+
+    /**
+     * 写真のアップロードを行う
+     *
+     */
+    public function uploadImage($form)
+    {
+        if (isset($form['image']))
+        {
+            $extension = $form['image']->getClientOriginalExtension();
+            $filename = $form['image']->getClientOriginalName();
+            $resize_img = Image::make($form['image'])->resize(320, 240)->encode($extension);
+            $path = Storage::disk('s3')->put('/post/'.$filename,(string)$resize_img, 'public');
+            $url = Storage::disk('s3')->url('post/'.$filename);
+            $this->image = $url;
+        }
+
+        if (!isset($form['image']))
+        {
+            $this->image = null;
+        }
     }
 }
