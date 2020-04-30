@@ -24,7 +24,7 @@
                         @endif
                     </div>
 
-                    @auth
+                    @if ($post->user_id === Auth::id())
                         <div class="col-12 pt-3 text-center">
                             <a class="btn btn-lg btn-primary" href="{{ route('post.edit',['post' => $post->id]) }}">編集</a>
                             <form class="d-inline" action="{{ route('post.delete', ['post' => $post->id]) }}" method="POST">
@@ -33,7 +33,7 @@
                                 <input type="submit" value="削除" class="btn btn-lg btn-danger">
                             </form>
                         </div>
-                    @endauth
+                    @endif
                 </div>
             </div>
         </>
