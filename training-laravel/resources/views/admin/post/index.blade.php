@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app_admin')
 
 @section('content')
     @if(Session::has('flash_message'))
@@ -7,7 +7,7 @@
         </div>
     @endif
     <div class="text-center">
-        <form action="{{ route('post.list') }}" method="get" class="mb-4">
+        <form action="{{ route('admin.post.list') }}" method="get" class="mb-4">
             <select name="type">
                 <option value="title">タイトル</option>
                 <option value="body">本文</option>
@@ -20,7 +20,7 @@
         <div>
         </div>
         @if(count($posts) === 0)
-            <h1 class="text-center mt-5">投稿が見つかりません</h1>
+            <h3>まだ投稿がありません</h3>
         @else
             <div class="row">
                 <div class="col-md-2">
@@ -30,8 +30,9 @@
                         </div>
                         <div class="card-body">
                             @foreach ($tags as $tag)
-                                <h3 class="text-center">
+                                <h3>
                                     <a href="/tag/search/{{ $tag->id }}">{{ $tag->category }}</a>
+                                    <a class="btn btn-lg btn-danger" href="#">削除</a>
                                 </h3>
                             @endforeach
                         </div>
@@ -48,7 +49,7 @@
                                         <img src="{{ asset('images/no-image.jpg') }}" alt="" class="card-img-top">
                                     @endif
                                     <div class="card-body bg-light">
-                                        <h3 class="card-title"><a href="{{ route('post.show',['post' => $post->id]) }}">{{ $post->title }}</a></h3>
+                                        <h3 class="card-title"><a href="{{ route('admin.post.show',['post' => $post->id]) }}">{{ $post->title }}</a></h3>
                                     </div>
                                 </div>
                             </div>
