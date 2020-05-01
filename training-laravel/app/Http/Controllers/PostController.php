@@ -64,11 +64,13 @@ class PostController extends Controller
      */
     public function show(Post $post, Tag $tag)
     {
+        $current_user = Auth::id();
         $tags = $post->tags;
 
         return view('post.show', [
             'post' => $post,
-            'tags' => $tags
+            'tags' => $tags,
+            'current_user' => $current_user,
         ]);
     }
 
