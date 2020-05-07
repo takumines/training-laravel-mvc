@@ -49,7 +49,7 @@
                                     @endif
                                     <div class="card-body bg-light">
                                         <h3 class="card-title"><a href="{{ route('post.show',['post' => $post->id]) }}">{{ $post->title }}</a></h3>
-                                        <p>投稿者：{{ post->user->name }}</p>
+                                        <p>投稿者：{{ $post->user->name }}</p>
                                     </div>
                                 </div>
                             </div>
