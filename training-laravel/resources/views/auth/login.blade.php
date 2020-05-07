@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+@if(Session::has('flash_message'))
+    <div class="alert alert-success">
+        {{ session('flash_message') }}
+    </div>
+@endif
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -64,8 +69,18 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group row mt-3">
+                            <div class="col-md-6 offset-md-4">
+                                <a href="/login/twitter">
+                                    <button type="button" class="btn btn-primary"><i class="fab fa-twitter"></i> Twitterアカウントでログインする</button>
+                                </a>
+                            </div>
+                        </div>
                     </form>
                 </div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="/admin/login" class="btn-lg btn-info">管理者ログイン</a>
             </div>
         </div>
     </div>
