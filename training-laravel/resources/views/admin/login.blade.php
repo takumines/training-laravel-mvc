@@ -50,6 +50,9 @@
                     </form>
                 </div>
             </div>
+            <div class="text-center mt-5">
+                <a href="/login" class="btn-lg btn-info">一般ユーザーログイン</a>
+            </div>
         </div>
     </div>
 </div>

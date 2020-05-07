@@ -52,10 +52,12 @@ Route::namespace('Admin')->prefix('admin')->group(function() {
 */
 
     Route::group(['middleware' => 'auth:admin'], function() {
-        Route::get('/', 'PostController@index')->name('post.list');
-        Route::post('logout', 'LoginController@logout')->name('admin.logout');
         Route::get('/', 'PostController@index')->name('admin.post.list');
         Route::get('/post/{post}', 'PostController@show')->name('admin.post.show');
-        Route::get('home',    'HomeController@index')->name('admin.home');
+        Route::delete('/post/{post}',   'PostController@destroy')->name('admin.post.delete');
+    // -------------------------- tag ---------------------------------------
+        Route::get('/tag/search/{tag}', 'TagController@index')->name('admin.tag.search');
+        Route::delete('/tag/{tag}', 'TagController@destroy')->name('admin.tag.delete');
+        Route::post('logout', 'LoginController@logout')->name('admin.logout');
     });
 });

@@ -27,7 +27,7 @@
                     @auth
                         <div class="col-12 pt-3 text-center">
                             <a class="btn btn-lg btn-primary" href="{{ route('post.edit',['post' => $post->id]) }}">編集</a>
-                            <form class="d-inline" action="{{ route('post.delete', ['post' => $post->id]) }}" method="POST">
+                            <form class="d-inline" action="{{ route('admin.post.delete', ['post' => $post->id]) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
                                 <input type="submit" value="削除" class="btn btn-lg btn-danger">
