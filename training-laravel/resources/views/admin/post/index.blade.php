@@ -32,7 +32,7 @@
                             @foreach ($tags as $tag)
                                 <h3>
                                     <a href="/tag/search/{{ $tag->id }}">{{ $tag->category }}</a>
-                                    <a class="btn btn-lg btn-danger" href="#">削除</a>
+                                    <a class="btn btn-md btn-danger" href="#">削除</a>
                                 </h3>
                             @endforeach
                         </div>
@@ -50,6 +50,7 @@
                                     @endif
                                     <div class="card-body bg-light">
                                         <h3 class="card-title"><a href="{{ route('admin.post.show',['post' => $post->id]) }}">{{ $post->title }}</a></h3>
+                                        <p>投稿者：{{ $post->user->name }}</p>
                                     </div>
                                 </div>
                             </div>
