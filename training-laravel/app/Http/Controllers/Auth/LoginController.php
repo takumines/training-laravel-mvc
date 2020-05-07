@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Socialite;
+use App\User;
 use Illuminate\Support\Facades\Auth;
+
 
 class LoginController extends Controller
 {
@@ -72,5 +75,35 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         return redirect('/login');
+    }
+
+    /**
+     * Twitter経由での認証処理をスタート
+     *
+     * @return Socialite
+     */
+    public function redirectToTwitterProvider()
+    {
+        return Socialite::driver('twitter')->redirect();
+    }
+
+    public function handleTwitterProviderCallback()
+    {
+        try {
+            $user = Socialite::with("twitter")->user();
+        }
+        catch (\Exception $e) {
+            return redirect('/login')->with('flash_message', 'ログインに失敗しました');
+        }
+
+        $myinfo = User::firstOrCreate(['token' => $user->token ],
+                    [
+                        'name' => $user->name,
+                        'email' => $user->getEmail(),
+                        'password'=> 'DUMMY_PASSWORD',
+                        ]);
+                    Auth::login($myinfo);
+
+                    return redirect()->to('/');
     }
 }
