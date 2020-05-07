@@ -52,6 +52,7 @@ Route::namespace('Admin')->prefix('admin')->group(function() {
 */
 
     Route::group(['middleware' => 'auth:admin'], function() {
+        Route::get('/', 'PostController@index')->name('post.list');
         Route::post('logout', 'LoginController@logout')->name('admin.logout');
         Route::get('/', 'PostController@index')->name('admin.post.list');
         Route::get('/post/{post}', 'PostController@show')->name('admin.post.show');
