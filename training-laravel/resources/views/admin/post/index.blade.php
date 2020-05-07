@@ -31,8 +31,12 @@
                         <div class="card-body">
                             @foreach ($tags as $tag)
                                 <h3>
-                                    <a href="/tag/search/{{ $tag->id }}">{{ $tag->category }}</a>
-                                    <a class="btn btn-lg btn-danger" href="#">削除</a>
+                                    <a href="/admin/tag/search/{{ $tag->id }}">{{ $tag->category }}</a>
+                                    <form class="d-inline" action="{{ route('admin.tag.delete', ['tag' => $tag->id]) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" value="削除" class="btn btn-md btn-danger">
+                                    </form>
                                 </h3>
                             @endforeach
                         </div>
@@ -50,6 +54,7 @@
                                     @endif
                                     <div class="card-body bg-light">
                                         <h3 class="card-title"><a href="{{ route('admin.post.show',['post' => $post->id]) }}">{{ $post->title }}</a></h3>
+                                        <p>投稿者：{{ $post->user->name }}</p>
                                     </div>
                                 </div>
                             </div>

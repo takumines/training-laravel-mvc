@@ -42,4 +42,17 @@ class PostController extends Controller
             'tags' => $tags
         ]);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return redirect('/admin/')->with('flash_message', '投稿を削除しました');
+    }
 }
