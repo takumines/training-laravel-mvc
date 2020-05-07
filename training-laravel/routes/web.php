@@ -58,6 +58,9 @@ Route::namespace('Admin')->prefix('admin')->group(function() {
     // -------------------------- tag ---------------------------------------
         Route::get('/tag/search/{tag}', 'TagController@index')->name('admin.tag.search');
         Route::delete('/tag/{tag}', 'TagController@destroy')->name('admin.tag.delete');
+    // -------------------------- user --------------------------------------
+        Route::get('/users', 'UserController@index')->name('admin.users');
+        Route::delete('/users/{user}', 'UserController@destroy')->name('admin.user.delete');
         Route::post('logout', 'LoginController@logout')->name('admin.logout');
     });
 });
