@@ -10,6 +10,10 @@ class Post extends Model
 {
     protected $fillable = ['user_id', 'title', 'body', 'image'];
 
+    protected $visible = ['id', 'title', 'body', 'image', 'user_name'];
+
+    protected $appends = ['user_name',];
+
     /**
      * usersテーブルと1対多のリレーション
      * @return App\User
@@ -20,7 +24,7 @@ class Post extends Model
     }
 
     /**
-     * usersテーブルとの多対多のリレーション
+     * tagsテーブルとの多対多のリレーション
      *
      * @return App\Tag
      */
@@ -69,5 +73,10 @@ class Post extends Model
         {
             $this->image = null;
         }
+    }
+
+    public function getUserNameAttribute()
+    {
+        return $this->user->name;
     }
 }

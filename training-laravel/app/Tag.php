@@ -8,6 +8,7 @@ class Tag extends Model
 {
     protected $fillable = ['category'];
 
+    protected $visible = ['category'];
     /**
      * postsテーブルとの多対多のリレーション
      *

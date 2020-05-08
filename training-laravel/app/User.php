@@ -5,8 +5,9 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
@@ -40,5 +41,21 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany('App\Post');
+    }
+
+    /**
+     * ユーザー特定のための一意な値を返却
+     */
+    public function getJWTIdentifier(): int
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * JWTで利用するクレーム情報で追加したクレーム情報があれば追加する
+     */
+    public function getJWTCustomClaims(): array
+    {
+        return [];
     }
 }
