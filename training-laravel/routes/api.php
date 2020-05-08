@@ -13,4 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/login', 'Auth\LoginController@showLoginForm');
+Route::group(['middleware' => 'api'], function() {
+    Route::namespace('Api')->group(function() {
+        Route::post('/register', 'Auth\RegisterController@register');
+        Route::post('/login', 'Auth\LoginController@login');
+        Route::group(['middleware' => 'jwt.auth'], function() {
+            Route::get('/', 'PostController@index');
+            Route::post('/post/add', 'PostController@store');
+            Route::get('/post/{id}', 'PostController@show');
+            Route::put('/post/{id}/edit', 'PostController@update');
+            Route::delete('/post/{id}', 'PostController@destroy');
+        });
+    });
+});
+

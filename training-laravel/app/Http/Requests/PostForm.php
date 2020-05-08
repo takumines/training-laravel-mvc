@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\ValidationException;
 
 class PostForm extends FormRequest
 {
@@ -41,5 +44,14 @@ class PostForm extends FormRequest
             'body' => '本文',
             'image' => '画像',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = (new ValidationException($validator))->errors();
+        throw new HttpResponseException(response()->json([
+            'message' => 'Failed validation',
+            'errors' => $errors,
+        ], 422, [], JSON_UNESCAPED_UNICODE));
     }
 }

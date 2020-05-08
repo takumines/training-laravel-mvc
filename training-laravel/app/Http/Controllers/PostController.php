@@ -45,6 +45,7 @@ class PostController extends Controller
      */
     public function store(PostForm $request, Post $post)
     {
+
         $post->user_id = Auth::id();
         $form = $request->all();
         $post->uploadImage($form);
@@ -62,7 +63,7 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post, Tag $tag)
+    public function show(Post $post)
     {
         $current_user = Auth::id();
         $tags = $post->tags;
