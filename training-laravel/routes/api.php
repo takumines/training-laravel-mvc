@@ -23,6 +23,9 @@ Route::group(['middleware' => 'api'], function() {
             Route::get('/post/{id}', 'PostController@show');
             Route::put('/post/{id}/edit', 'PostController@update');
             Route::delete('/post/{id}', 'PostController@destroy');
+        /*-------------------------- tag --------------------------------*/
+            Route::get('/tag/search/{id}', 'TagController@index');
+            Route::post('/tag/create', 'TagController@store');
         });
     });
 });

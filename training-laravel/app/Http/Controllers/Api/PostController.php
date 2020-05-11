@@ -31,7 +31,7 @@ class PostController extends Controller
      */
     public function store(PostForm $request, Post $post)
     {
-        $post->user_id = 1;
+        $post->user_id = Auth::id();
 
         $form = $request->all();
         $post->uploadImage($form);
