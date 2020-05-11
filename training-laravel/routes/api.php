@@ -30,3 +30,11 @@ Route::group(['middleware' => 'api'], function() {
     });
 });
 
+Route::group(['middleware' => 'api'], function() {
+    Route::namespace('Admin\Api')->prefix('admin')->group(function() {
+        Route::post('/login', 'Auth\LoginController@login');
+        Route::group(['middleware' => 'jwt.auth'], function() {
+            Route::get('/', 'PostController@index');
+        });
+    });
+});

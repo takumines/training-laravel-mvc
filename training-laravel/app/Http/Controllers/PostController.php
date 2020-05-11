@@ -102,6 +102,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        dd($request);
         $form = $request->all();
         $post->uploadImage($form);
         unset($form['image']);
