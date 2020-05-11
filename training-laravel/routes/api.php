@@ -35,6 +35,8 @@ Route::group(['middleware' => 'api'], function() {
         Route::post('/login', 'Auth\LoginController@login');
         Route::group(['middleware' => 'jwt.auth'], function() {
             Route::get('/', 'PostController@index');
+            Route::get('/post/{id}', 'PostController@show');
+            Route::delete('/post/{id}', 'PostController@destroy');
         });
     });
 });
