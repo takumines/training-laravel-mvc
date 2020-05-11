@@ -47,6 +47,12 @@ return [
             'hash' => false,
         ],
 
+        'api_admin' => [
+            'driver' => 'jwt',
+            'provider' => 'admins',
+            'hash' => false,
+        ],
+
         'user' => [
             'driver' => 'session',
             'provider' => 'users',
