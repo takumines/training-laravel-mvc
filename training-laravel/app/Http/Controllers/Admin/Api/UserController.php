@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\User;
 
 class UserController extends Controller
 {
@@ -12,9 +13,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
+        $users = $user->all();
 
+        return response()->json([
+            'message' => 'ok',
+            'data' => [
+                $users
+            ]
+        ], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -36,6 +44,17 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        if ($user) {
+            $user->delete();
+
+            return response()->json([
+                'massage' => 'User delete Successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'massage' => 'User not found',
+            ], 404);
+        }
     }
 }
