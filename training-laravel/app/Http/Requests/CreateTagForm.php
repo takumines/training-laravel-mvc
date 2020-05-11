@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\ValidationException;
 
 class CreateTagForm extends FormRequest
 {
@@ -38,5 +41,14 @@ class CreateTagForm extends FormRequest
         return [
             'category' => 'タグ',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = (new ValidationException($validator))->errors();
+        throw new HttpResponseException(response()->json([
+            'message' => 'Failed validation',
+            'errors' => $errors,
+        ], 422, [], JSON_UNESCAPED_UNICODE));
     }
 }
