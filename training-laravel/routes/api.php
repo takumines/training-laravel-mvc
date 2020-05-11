@@ -40,6 +40,9 @@ Route::group(['middleware' => 'api'], function() {
         /*----------------------- tag -------------------------------*/
             Route::get('/tag/search/{id}', 'TagController@index');
             Route::delete('/tag/{id}', 'TagController@destroy');
+        /*----------------------- user ------------------------------*/
+            Route::get('/users', 'UserController@index');
+            Route::delete('users/{id}', 'UserController@destroy');
         });
     });
 });
