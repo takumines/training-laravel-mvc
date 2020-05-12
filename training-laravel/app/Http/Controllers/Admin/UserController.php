@@ -23,6 +23,26 @@ class UserController extends Controller
         ]);
     }
 
+    public function chengeSuspension(User $user)
+    {
+        if ($user->status === User::STATUS_ACTIVE) {
+            $user->status = User::STATUS_SUSPENSION;
+            $user->save();
+        }
+
+        return redirect('/admin/users');
+    }
+
+    public function chengeActive(User $user)
+    {
+        if ($user->status === User::STATUS_SUSPENSION) {
+            $user->status = User::STATUS_ACTIVE;
+            $user->save();
+        }
+
+        return redirect('/admin/users');
+    }
+
     /**
      * user削除
      */
