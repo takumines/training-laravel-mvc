@@ -11,13 +11,16 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    const STATUS_ACTIVE = 'active';
+    const STATUS_SUSPENSION = 'suspension';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'token',
+        'name', 'email', 'password', 'token', 'status',
     ];
 
     /**

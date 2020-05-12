@@ -21,8 +21,8 @@ Route::group(['middleware' => 'api'], function() {
             Route::get('/', 'PostController@index');
             Route::post('/post/add', 'PostController@store');
             Route::get('/post/{id}', 'PostController@show');
-            Route::put('/post/{id}/edit', 'PostController@update');
-            Route::delete('/post/{id}', 'PostController@destroy');
+            Route::put('/post/{id}/edit', 'PostController@update')->middleware('can:update,post');
+            Route::delete('/post/{id}', 'PostController@destroy')->middleware('can:delete,post');;
         /*-------------------------- tag --------------------------------*/
             Route::get('/tag/search/{id}', 'TagController@index');
             Route::post('/tag/create', 'TagController@store');
