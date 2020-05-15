@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/ping', function() {
+    return response()->json(['message' => 'pong']);
+});
 
 Route::group(['middleware' => 'api'], function() {
     Route::namespace('Api')->group(function() {
